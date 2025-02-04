@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#1A1A2E" rx="100" />
+  
+  <!-- Outer hexagon -->
+  <path d="M256 96L384 176V336L256 416L128 336V176L256 96Z" 
+        fill="none" 
+        stroke="#00FFFF" 
+        stroke-width="8"
+        opacity="0.3" />
+  
+  <!-- Inner hexagon -->
+  <path d="M256 146L344 196V296L256 346L168 296V196L256 146Z" 
+        fill="none" 
+        stroke="#00FFFF" 
+        stroke-width="4" />
+        
+  <!-- Dollar symbol -->
+  <path d="M280 196H232C224 196 216 204 216 212C216 220 224 228 232 228H280C288 228 296 236 296 244C296 252 288 260 280 260H232M256 180V276" 
+        stroke="#00FFFF" 
+        stroke-width="16" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none" />
+        
+  <!-- Decorative dots -->
+  <circle cx="256" cy="96" r="8" fill="#00FFFF" />
+  <circle cx="384" cy="176" r="8" fill="#00FFFF" />
+  <circle cx="384" cy="336" r="8" fill="#00FFFF" />
+  <circle cx="256" cy="416" r="8" fill="#00FFFF" />
+  <circle cx="128" cy="336" r="8" fill="#00FFFF" />
+  <circle cx="128" cy="176" r="8" fill="#00FFFF" />
+</svg>

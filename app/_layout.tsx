@@ -1,11 +1,13 @@
 import { Drawer } from 'expo-router/drawer';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useBudgetStore from '../store';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { Stack } from 'expo-router';
+import SplashScreen from '../components/SplashScreen';
 
 function CustomDrawerContent(props) {
   const currentBudget = useBudgetStore((state) => state.currentBudget);
@@ -39,14 +41,40 @@ function CustomDrawerContent(props) {
 }
 
 export default function Layout() {
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const currentBudget = useBudgetStore((state) => state.currentBudget);
 
   useEffect(() => {
-    if (!currentBudget) {
+    async function initializeApp() {
+      try {
+        // Add your initialization tasks here
+        // await loadStoredData();
+        // await initializeStore();
+        // etc...
+        
+        // Add minimum display time of 2 seconds
+        await new Promise(resolve => setTimeout(resolve, 3200));
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to initialize app:', error);
+        // Handle initialization error
+      }
+    }
+
+    initializeApp();
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && !currentBudget) {
       router.replace('/setup-budget');
     }
-  }, [currentBudget]);
+  }, [currentBudget, isLoading, router]);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <>
