@@ -14,12 +14,13 @@ export default function Index() {
   const router = useRouter();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { currentBudget, getDailyBudget, getBudgetHealth, getDaysLeft, getSavedBasedOnDailyBudget, getTodaySpent } = useBudgetStore();
+  const { currentBudget, getDailyBudget, getBudgetHealth, getDaysLeft, getSavedBasedOnDailyBudget, getTodaySpent, getTodaysDate } = useBudgetStore();
   const budgetHealth = getBudgetHealth();
   const dailyBudget = getDailyBudget();
   const daysLeft = getDaysLeft();
   const savedBasedOnDailyBudget = getSavedBasedOnDailyBudget();
   const todaySpent = getTodaySpent();
+  const todaysDate = getTodaysDate();
   const healthAnimation = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
@@ -38,7 +39,7 @@ export default function Index() {
           onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
           style={{ marginLeft: 16 }}
         >
-          <MaterialCommunityIcons name="menu" size={24} color="#fff" />
+          <MaterialCommunityIcons name="menu" size={36} color="#fff" marginRight={16} />
         </Pressable>
       ),
     });
@@ -72,16 +73,25 @@ export default function Index() {
         </View>
       </View>
 
+      
+
       {/* Daily Budget Section */}
       <View style={styles.dailyBudgetContainer}>
-        <Text style={styles.dailyBudgetLabel}>Daily Budget</Text>
-        <AnimatedNumber
-          value={dailyBudget - todaySpent}
-          style={styles.dailyBudgetAmount}
-          prefix="₺"
-        />
-        <Text style={styles.daysLeft}>{daysLeft} days left</Text>
-        <Text style={styles.daysLeft}>You have spent <Text style={styles.todaySpent}>{todaySpent}₺</Text> today</Text>
+        {/* Greeting Section */}
+        <View style={styles.greetingSection}>
+          <Text style={styles.greetingText}>Hello, Budd!</Text>
+          <Text style={styles.greetingDate}>{todaysDate}</Text>
+        </View>
+        <View style={styles.dailyBudgetContent}>
+          <Text style={styles.dailyBudgetLabel}>Daily Budget</Text>
+          <AnimatedNumber
+            value={dailyBudget - todaySpent}
+            style={styles.dailyBudgetAmount}
+            prefix="₺"
+          />
+          <Text style={styles.daysLeft}>{daysLeft} days left</Text>
+          <Text style={styles.daysLeft}>You have spent <Text style={styles.todaySpent}>{todaySpent}₺</Text> today</Text>
+        </View>
       </View>
 
       {/* Insights Section */}
@@ -170,8 +180,32 @@ const styles = StyleSheet.create({
   dailyBudgetContainer: {
     backgroundColor: '#121212',
     margin: 16,
-    padding: 20,
     borderRadius: 8,
+  },
+  greetingSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#fafafa',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  greetingText: {
+    color: '#00BCD4',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  greetingDate: {
+    color: '#00BCD4',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  dailyBudgetContent: {
+    padding: 20,
+    paddingTop: 10,
   },
   dailyBudgetLabel: {
     color: '#666',

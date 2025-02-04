@@ -6,6 +6,7 @@ import { Transaction, MonthlyBudget, BudgetCategory } from '../types';
 interface BudgetStore {
   transactions: Transaction[];
   currentBudget: MonthlyBudget | null;
+  getTodaysDate: () => string;
   addTransaction: (transaction: Omit<Transaction, 'id' | 'date'>) => void;
   setBudget: (budget: MonthlyBudget) => void;
   updateCategory: (categoryId: string, amount: number) => void;
@@ -30,6 +31,10 @@ const useBudgetStore = create<BudgetStore>()(
     (set, get) => ({
       transactions: [],
       currentBudget: null,
+      getTodaysDate: () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+      },
 
       addTransaction: (transaction) => {
         const newTransaction: Transaction = {
