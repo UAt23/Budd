@@ -3,9 +3,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import useBudgetStore from "./store";
-import { BudgetCategory } from './types';
-import AnimatedNumber from './components/AnimatedNumber';
+import useBudgetStore from "../store";
+import { BudgetCategory } from '../types';
+import AnimatedNumber from '../components/AnimatedNumber';
 import { Animated } from 'react-native';
 import React from 'react';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
@@ -14,9 +14,12 @@ export default function Index() {
   const router = useRouter();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { currentBudget, getDailyBudget, getBudgetHealth } = useBudgetStore();
+  const { currentBudget, getDailyBudget, getBudgetHealth, getDaysLeft, getSavedBasedOnDailyBudget, getTodaySpent } = useBudgetStore();
   const budgetHealth = getBudgetHealth();
   const dailyBudget = getDailyBudget();
+  const daysLeft = getDaysLeft();
+  const savedBasedOnDailyBudget = getSavedBasedOnDailyBudget();
+  const todaySpent = getTodaySpent();
   const healthAnimation = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
@@ -73,10 +76,18 @@ export default function Index() {
       <View style={styles.dailyBudgetContainer}>
         <Text style={styles.dailyBudgetLabel}>Daily Budget</Text>
         <AnimatedNumber
-          value={dailyBudget}
+          value={dailyBudget - todaySpent}
           style={styles.dailyBudgetAmount}
           prefix="₺"
         />
+        <Text style={styles.daysLeft}>{daysLeft} days left</Text>
+        <Text style={styles.daysLeft}>You have spent <Text style={styles.todaySpent}>{todaySpent}₺</Text> today</Text>
+      </View>
+
+      {/* Insights Section */}
+      <View style={styles.insightsContainer}>
+        <Text style={styles.insightsTitle}>Insights</Text>
+        <Text style={styles.insightsText}>You have saved <Text style={styles.insightsAmount}>{savedBasedOnDailyBudget}₺</Text> based on your daily budget so far 😎.</Text>
       </View>
 
       {/* Budget Categories Grid */}
@@ -92,7 +103,7 @@ export default function Index() {
       </View>
 
       {/* Updated FAB */}
-      <Pressable 
+      <Pressable
         style={styles.fab}
         onPress={() => router.push('/add-transaction')}
       >
@@ -172,6 +183,44 @@ const styles = StyleSheet.create({
     color: '#00BCD4',
     fontSize: 28,
     textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  daysLeft: {
+    color: '#666',
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  todaySpent: {
+    color: '#FF0000',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  daysLeftAmount: {
+    color: '#00BCD4',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  insightsContainer: {
+    backgroundColor: '#121212',
+    margin: 16,
+    padding: 20,
+    borderRadius: 8,
+  },
+  insightsTitle: {
+    color: '#00BCD4',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  insightsText: {
+    color: '#666',
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  insightsAmount: {
+    color: '#00BCD4',
+    fontSize: 16,
     fontWeight: 'bold',
   },
   categoriesGrid: {

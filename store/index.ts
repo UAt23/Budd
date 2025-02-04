@@ -11,6 +11,9 @@ interface BudgetStore {
   updateCategory: (categoryId: string, amount: number) => void;
   getDailyBudget: () => number;
   getBudgetHealth: () => number;
+  getDaysLeft: () => number;
+  getSavedBasedOnDailyBudget: () => number;
+  getTodaySpent: () => number;
 }
 
 const defaultCategories: BudgetCategory[] = [
@@ -101,6 +104,54 @@ const useBudgetStore = create<BudgetStore>()(
 
         if (totalAllocated === 0) return 100;
         return Math.max(0, Math.min(100, 100 - (totalSpent / totalAllocated) * 100));
+      },
+      getTodaySpent: () => {
+        const { transactions } = get();
+        const today = new Date();
+        const todaySpent = transactions.filter(t => new Date(t.date).toISOString().split('T')[0] === today.toISOString().split('T')[0]).reduce((sum, t) => sum + t.amount, 0);
+        return todaySpent;
+      },
+      getDaysLeft: () => {
+        const { currentBudget } = get();
+        if (!currentBudget) return 0;
+
+        const start = new Date(currentBudget.startDate);
+        const end = new Date(currentBudget.endDate);
+        const today = new Date();
+        const daysInMonth = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+        const daysLeft = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        return daysLeft;
+      },
+      getSavedBasedOnDailyBudget: () => {
+        const { currentBudget, transactions } = get();
+        if (!currentBudget) return 0;
+
+        const start = new Date(currentBudget.startDate);
+        const end = new Date(currentBudget.endDate);
+        const dailyBudget = get().getDailyBudget();
+
+        // Create a map of daily spending
+        const dailySpending = new Map<string, number>();
+
+        // Group transactions by date and sum amounts
+        transactions.forEach(transaction => {
+          const date = new Date(transaction.date).toISOString().split('T')[0];
+          const currentAmount = dailySpending.get(date) || 0;
+          dailySpending.set(date, currentAmount + transaction.amount);
+        });
+
+        let totalSaved = 0;
+        const currentDate = new Date();
+
+        // Iterate through each day from start to either end date or current date (whichever is earlier)
+        for (let d = new Date(start); d <= end && d <= currentDate; d.setDate(d.getDate() + 1)) {
+          const dateStr = d.toISOString().split('T')[0];
+          const spentToday = dailySpending.get(dateStr) || 0;
+          const savedToday = Math.max(0, dailyBudget - spentToday);
+          totalSaved += savedToday;
+        }
+
+        return Number(totalSaved.toFixed(2));
       },
     }),
     {

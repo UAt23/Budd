@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import useBudgetStore from './store';
+import useBudgetStore from '../store';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 
@@ -67,7 +67,7 @@ export default function Layout() {
           drawerActiveTintColor: '#00BCD4',
           drawerInactiveTintColor: '#666',
           drawerLabelStyle: {
-            marginLeft: -16,
+            marginLeft: 8,
           },
           drawerType: 'slide',
         }}
@@ -79,7 +79,7 @@ export default function Layout() {
             title: 'Budget Overview',
             drawerLabel: 'Overview',
             drawerIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="wallet" size={size} color={color} paddingRight={16} paddingRight={16} />
+              <MaterialCommunityIcons name="wallet" size={size} color={color}/>
             ),
           }}
         />
@@ -89,7 +89,7 @@ export default function Layout() {
             title: 'Transactions',
             drawerLabel: 'Transactions',
             drawerIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="format-list-bulleted" size={size} color={color} paddingRight={16} />
+              <MaterialCommunityIcons name="format-list-bulleted" size={size} color={color} />
             ),
           }}
         />
@@ -99,7 +99,7 @@ export default function Layout() {
             title: 'Categories',
             drawerLabel: 'Categories',
             drawerIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="shape" size={size} color={color} paddingRight={16} />
+              <MaterialCommunityIcons name="shape" size={size} color={color} />
             ),
           }}
         />
@@ -109,20 +109,21 @@ export default function Layout() {
             title: 'Settings',
             drawerLabel: 'Settings',
             drawerIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="cog" size={size} color={color} paddingRight={16} />
+              <MaterialCommunityIcons name="cog" size={size} color={color} />
             ),
           }}
         />
         <Drawer.Screen
           name="add-transaction"
           options={{
+            title: "Add Transaction",
             drawerItemStyle: { height: 0 },
-            presentation: 'modal',
           }}
         />
         <Drawer.Screen
           name="setup-budget"
           options={{
+            title: "Setting Up Budget",
             drawerItemStyle: { height: 0 },
           }}
         />

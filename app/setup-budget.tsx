@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, ScrollView, Animated } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import useBudgetStore from './store';
-import { BudgetCategory } from './types';
+import useBudgetStore from '../store';
+import { BudgetCategory } from '../types';
 
 
 export default function SetupBudget() {

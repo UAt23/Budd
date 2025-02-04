@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import useBudgetStore from './store';
-import { Transaction } from './types';
+import useBudgetStore from '../store';
+import { Transaction } from '../types';
+
 
 export default function TransactionsScreen() {
   const transactions = useBudgetStore((state) => state.transactions);
