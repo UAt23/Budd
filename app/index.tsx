@@ -101,17 +101,19 @@ export default function Index() {
       </View>
 
       {/* Budget Categories Grid */}
-      <View style={styles.categoriesGrid}>
-        {currentBudget?.categories.map((category) => (
-          <BudgetCard
-            key={category.id}
-            title={category.name}
-            amount={category.allocated.toString()}
-            icon={category.icon}
-          />
-        ))}
+      <View style={styles.categoriesGridContainer}>
+        <Text style={styles.categoriesGridTitle}>Your Plan</Text>
+        <View style={styles.categoriesGrid}>
+          {currentBudget?.categories.map((category) => (
+            <BudgetCard
+              key={category.id}
+              title={category.name}
+              amount={category.allocated.toString()}
+              icon={category.icon}
+            />
+          ))}
+        </View>
       </View>
-
       {/* Updated FAB */}
       <Pressable
         style={styles.fab}
@@ -194,12 +196,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
   },
   greetingText: {
-    color: '#00BCD4',
+    color: '#021a1e',
     fontSize: 24,
     fontWeight: 'bold',
   },
   greetingDate: {
-    color: '#00BCD4',
+    color: '#021a1e',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -256,6 +258,21 @@ const styles = StyleSheet.create({
     color: '#00BCD4',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  categoriesGridContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 16,
+  },
+  categoriesGridTitle: {
+    color: '#00BCD4',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: '#00BCD4',
+    paddingBottom: 16,
+    width: '100%',
   },
   categoriesGrid: {
     flexDirection: 'row',
