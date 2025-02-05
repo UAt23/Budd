@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#1B1C2C"
-      }
+      },
+      "package": "com.iconica.budd"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
