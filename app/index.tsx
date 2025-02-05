@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -46,75 +46,76 @@ export default function Index() {
   }, [navigation]);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Budget Health Section */}
-      <View style={styles.healthSection}>
-        <View style={styles.healthHeader}>
-          <Text style={styles.healthTitle}>BUDGET HEALTH</Text>
-          <AnimatedNumber
-            value={budgetHealth}
-            style={styles.healthScore}
-          />
-        </View>
-        <View style={styles.progressBar}>
-          <Animated.View 
-            style={[
-              styles.progressFill, 
-              { 
-                transform: [{
-                  scaleX: healthAnimation.interpolate({
-                    inputRange: [0, 100],
-                    outputRange: [0, 1],
-                  })
-                }]
-              }
-            ]} 
-          />
-        </View>
-      </View>
-
-      
-
-      {/* Daily Budget Section */}
-      <View style={styles.dailyBudgetContainer}>
-        {/* Greeting Section */}
-        <View style={styles.greetingSection}>
-          <Text style={styles.greetingText}>Hello, Budd!</Text>
-          <Text style={styles.greetingDate}>{todaysDate}</Text>
-        </View>
-        <View style={styles.dailyBudgetContent}>
-          <Text style={styles.dailyBudgetLabel}>Daily Budget</Text>
-          <AnimatedNumber
-            value={dailyBudget - todaySpent}
-            style={styles.dailyBudgetAmount}
-            prefix="₺"
-          />
-          <Text style={styles.daysLeft}>{daysLeft} days left</Text>
-          <Text style={styles.daysLeft}>You have spent <Text style={styles.todaySpent}>{todaySpent}₺</Text> today</Text>
-        </View>
-      </View>
-
-      {/* Insights Section */}
-      <View style={styles.insightsContainer}>
-        <Text style={styles.insightsTitle}>Insights</Text>
-        <Text style={styles.insightsText}>You have saved <Text style={styles.insightsAmount}>{savedBasedOnDailyBudget}₺</Text> based on your daily budget so far 😎.</Text>
-      </View>
-
-      {/* Budget Categories Grid */}
-      <View style={styles.categoriesGridContainer}>
-        <Text style={styles.categoriesGridTitle}>Your Plan</Text>
-        <View style={styles.categoriesGrid}>
-          {currentBudget?.categories.map((category) => (
-            <BudgetCard
-              key={category.id}
-              title={category.name}
-              amount={category.allocated.toString()}
-              icon={category.icon}
+    <View style={[styles.container]}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Budget Health Section */}
+        <View style={styles.healthSection}>
+          <View style={styles.healthHeader}>
+            <Text style={styles.healthTitle}>BUDGET HEALTH</Text>
+            <AnimatedNumber
+              value={budgetHealth}
+              style={styles.healthScore}
             />
-          ))}
+          </View>
+          <View style={styles.progressBar}>
+            <Animated.View 
+              style={[
+                styles.progressFill, 
+                { 
+                  transform: [{
+                    scaleX: healthAnimation.interpolate({
+                      inputRange: [0, 100],
+                      outputRange: [0, 1],
+                    })
+                  }]
+                }
+              ]} 
+            />
+          </View>
         </View>
-      </View>
-      {/* Updated FAB */}
+
+        {/* Daily Budget Section */}
+        <View style={styles.dailyBudgetContainer}>
+          {/* Greeting Section */}
+          <View style={styles.greetingSection}>
+            <Text style={styles.greetingText}>Hello, Budd!</Text>
+            <Text style={styles.greetingDate}>{todaysDate}</Text>
+          </View>
+          <View style={styles.dailyBudgetContent}>
+            <Text style={styles.dailyBudgetLabel}>Daily Budget</Text>
+            <AnimatedNumber
+              value={dailyBudget - todaySpent}
+              style={styles.dailyBudgetAmount}
+              prefix="₺"
+            />
+            <Text style={styles.daysLeft}>{daysLeft} days left</Text>
+            <Text style={styles.daysLeft}>You have spent <Text style={styles.todaySpent}>{todaySpent}₺</Text> today</Text>
+          </View>
+        </View>
+
+        {/* Insights Section */}
+        <View style={styles.insightsContainer}>
+          <Text style={styles.insightsTitle}>Insights</Text>
+          <Text style={styles.insightsText}>You have saved <Text style={styles.insightsAmount}>{savedBasedOnDailyBudget}₺</Text> based on your daily budget so far 😎.</Text>
+        </View>
+
+        {/* Budget Categories Grid */}
+        <View style={styles.categoriesGridContainer}>
+          <Text style={styles.categoriesGridTitle}>Your Plan</Text>
+          <View style={styles.categoriesGrid}>
+            {currentBudget?.categories.map((category) => (
+              <BudgetCard
+                key={category.id}
+                title={category.name}
+                amount={category.allocated.toString()}
+                icon={category.icon}
+              />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+
+      {/* FAB stays outside ScrollView to remain fixed */}
       <Pressable
         style={styles.fab}
         onPress={() => router.push('/add-transaction')}
@@ -137,9 +138,9 @@ function BudgetCard({ title, amount, icon }: BudgetCardProps) {
   return (
     <View style={styles.budgetCard}>
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons name={icon} size={24} color="#00BCD4" />
+        <MaterialCommunityIcons name={icon} size={24} color="#FFF" />
       </View>
-      <Text style={styles.cardTitle}>{title}</Text>
+      <Text style={styles.cardTitle} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
       <Text style={styles.cardAmount}>₺{amount}</Text>
     </View>
   );
@@ -148,7 +149,7 @@ function BudgetCard({ title, amount, icon }: BudgetCardProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0A0A',
+    backgroundColor: '#111827',
   },
   healthSection: {
     padding: 16,
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   dailyBudgetContainer: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     margin: 16,
     borderRadius: 8,
   },
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   dailyBudgetLabel: {
-    color: '#666',
+    color: '#fff',
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 8,
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   daysLeft: {
-    color: '#666',
+    color: '#fff',
     fontSize: 14,
     textAlign: 'center',
     marginTop: 8,
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   insightsContainer: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     margin: 16,
     padding: 20,
     borderRadius: 8,
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   insightsText: {
-    color: '#666',
+    color: '#fff',
     fontSize: 14,
     textAlign: 'center',
     marginTop: 8,
@@ -281,26 +282,29 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   budgetCard: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526e',
     width: '30%',
     aspectRatio: 1,
     borderRadius: 8,
     padding: 16,
+    paddingBottom: 24,
+    marginTop: 24,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   iconContainer: {
     width: 48,
     height: 48,
-    backgroundColor: '#1E1E1E',
+    backgroundColor: '#909EB6',
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
+    marginVertical: 8,
   },
   cardTitle: {
-    color: '#666',
-    fontSize: 14,
+    color: '#ffffff',
+    fontSize: 12,
     textAlign: 'center',
     marginBottom: 4,
   },
@@ -329,5 +333,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 100,
   },
 });

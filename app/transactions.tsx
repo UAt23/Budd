@@ -76,7 +76,7 @@ export default function TransactionsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.summary}>
-        <Text style={styles.summaryTitle}>This Month's Spending</Text>
+        <Text style={styles.summaryTitle}>This Month's Spending:</Text>
         <Text style={styles.summaryAmount}>
           ₺{transactions.reduce((sum, t) => sum + t.amount, 0).toFixed(2)}
         </Text>
@@ -95,16 +95,18 @@ export default function TransactionsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0A0A',
+    backgroundColor: '#111827',
+    padding: 16,
   },
   summary: {
-    backgroundColor: '#121212',
+    backgroundColor: '#5D7298',
     padding: 20,
     marginBottom: 8,
+    borderRadius: 8,
   },
   summaryTitle: {
-    color: '#666',
-    fontSize: 14,
+    color: '#fff',
+    fontSize: 16,
     marginBottom: 4,
   },
   summaryAmount: {
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   dateText: {
-    color: '#666',
+    color: '#fff',
     fontSize: 14,
   },
   dateTotal: {
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   transactionCard: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     borderRadius: 8,
     padding: 16,
     flexDirection: 'row',
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   categoryName: {
-    color: '#666',
+    color: '#fff',
     fontSize: 14,
   },
   amount: {

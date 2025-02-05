@@ -56,7 +56,7 @@ export default function SetupBudget() {
                 onChangeText={setIncome}
                 keyboardType="numeric"
                 placeholder="₺0"
-                placeholderTextColor="#666"
+                placeholderTextColor="#fff"
               />
             </View>
             <Pressable
@@ -87,7 +87,7 @@ export default function SetupBudget() {
                   onChangeText={(value) => setAllocations(prev => ({ ...prev, [category.id]: value }))}
                   keyboardType="numeric"
                   placeholder="₺0"
-                  placeholderTextColor="#666"
+                  placeholderTextColor="#fff"
                 />
               </View>
             ))}
@@ -105,7 +105,7 @@ export default function SetupBudget() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0A0A',
+    backgroundColor: '#111827',
   },
   stepContainer: {
     flex: 1,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    color: '#666',
+    color: '#fff',
     fontSize: 16,
     marginBottom: 32,
     textAlign: 'center',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     borderRadius: 8,
     padding: 16,
     fontSize: 24,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   categoryInput: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,

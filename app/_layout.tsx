@@ -82,18 +82,18 @@ export default function Layout() {
       <Drawer
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#121212',
+            backgroundColor: '#43526E',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
           drawerStyle: {
-            backgroundColor: '#121212',
+            backgroundColor: '#43526E',
             width: 300,
           },
           drawerActiveTintColor: '#00BCD4',
-          drawerInactiveTintColor: '#666',
+          drawerInactiveTintColor: '#fff',
           drawerLabelStyle: {
             marginLeft: 8,
           },
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
     marginTop: 36,
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
   },
   drawerHeader: {
     padding: 16,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   drawerSubtitle: {
-    color: '#666',
+    color: '#fff',
     fontSize: 14,
     marginTop: 4,
   },
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#1E1E1E',
   },
   summaryLabel: {
-    color: '#666',
+    color: '#fff',
     fontSize: 12,
     marginBottom: 4,
   },
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#1E1E1E',
   },
   footerText: {
-    color: '#666',
+    color: '#fff',
     fontSize: 12,
     textAlign: 'center',
   },

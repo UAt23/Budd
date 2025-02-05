@@ -43,7 +43,7 @@ export default function AddTransaction() {
           onChangeText={setAmount}
           keyboardType="numeric"
           placeholder="0.00"
-          placeholderTextColor="#666"
+          placeholderTextColor="#fff"
         />
       </View>
 
@@ -54,7 +54,7 @@ export default function AddTransaction() {
           value={description}
           onChangeText={setDescription}
           placeholder="What's this for?"
-          placeholderTextColor="#666"
+          placeholderTextColor="#fff"
         />
       </View>
 
@@ -96,7 +96,7 @@ export default function AddTransaction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0A0A',
+    backgroundColor: '#111827',
     padding: 16,
   },
   inputContainer: {
@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   amountInput: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     borderRadius: 8,
     padding: 16,
     fontSize: 24,
     color: '#fff',
   },
   descriptionInput: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   categoryCard: {
-    backgroundColor: '#121212',
+    backgroundColor: '#43526E',
     width: '30%',
     aspectRatio: 1,
     borderRadius: 8,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00BCD4',
   },
   categoryText: {
-    color: '#666',
+    color: '#fff',
     marginTop: 8,
     fontSize: 14,
     textAlign: 'center',
